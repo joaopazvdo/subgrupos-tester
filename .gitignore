@@ -1,0 +1,16 @@
+# Compilação e Build
+target/
+bin/
+*.class
+
+# Configurações específicas do Eclipse (NÃO SUBIR)
+.settings/
+.project
+.classpath
+
+# Arquivos de Sistema e IDEs
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+*.log
