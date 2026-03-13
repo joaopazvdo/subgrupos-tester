@@ -40,7 +40,7 @@ public enum OperacaoReais implements Operacao<Double> {
 	
 	/** {@inheritDoc} */
 	@Override
-	public Double getIdentidade() {
+	public Double getIdentidade(Double v) {
 		return identidade;
 	}
 }

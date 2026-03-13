@@ -18,9 +18,10 @@ public interface Operacao<T> {
 	
 	/**
 	 * Retorna o elemento identidade (ou neutro) da operação.
+	 * @param v caso a operação precise para definir a identidade.
 	 * @return O valor de identidade da operação.
 	 */
-	public T getIdentidade();
+	public T getIdentidade(T v);
 	
 	/**
 	 * Verifica se a representação textual fornecida corresponde ao símbolo 
