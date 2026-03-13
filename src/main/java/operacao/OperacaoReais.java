@@ -9,14 +9,26 @@ package operacao;
 public enum OperacaoReais implements Operacao<Double> {
 	
 	MULTIPLICACAO("*", 1.0) {
-		/** {@inheritDoc} */
+		
+		/**
+		* Realiza a multiplicação de dois números reais.
+		* @param v1 Primeiro operando.
+		* @param v2 Segundo operando.
+	 	* @return O produto da multiplicação.
+		 */
 		@Override
 		public Double faz(Double v1, Double v2) {
 			return v1 * v2;
 		}
 	},
 	SOMA("+", 0.0) {
-		/** {@inheritDoc} */
+
+		/**
+		* Realiza a soma de dois números reais.
+		* @param v1 Primeiro operando.
+		* @param v2 Segundo operando.
+	 	* @return O resultado da operação.
+		 */
 		@Override
 		public Double faz(Double v1, Double v2) {
 			return v1 + v2;
