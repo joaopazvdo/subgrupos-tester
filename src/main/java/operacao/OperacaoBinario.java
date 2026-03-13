@@ -54,7 +54,6 @@ public enum OperacaoBinario implements Operacao<String> {
 	}
 	
 	/** {@inheritDoc} */
-
 	@Override
 	public String getIdentidade(String v) {
 		return Integer.toBinaryString(identidade);
