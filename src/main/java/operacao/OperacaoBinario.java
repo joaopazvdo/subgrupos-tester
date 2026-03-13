@@ -15,7 +15,7 @@ public enum OperacaoBinario implements Operacao<String> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
-		 */
+		*/
 		@Override
 		public String faz(String v1, String v2) {
 			int bin1 = Integer.parseInt(v1, 2);
@@ -33,7 +33,7 @@ public enum OperacaoBinario implements Operacao<String> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O resultado da operação.
-		 */
+		*/
 		@Override
 		public String faz(String v1, String v2) {
 			int bin1 = Integer.parseInt(v1, 2);
@@ -53,7 +53,9 @@ public enum OperacaoBinario implements Operacao<String> {
 		this.identidade = identidade;
 	}
 	
-	/** {@inheritDoc} */
+	/** {@inheritDoc} 
+	 * @param v irrelevante para o resultado
+	 */
 	@Override
 	public String getIdentidade(String v) {
 		return Integer.toBinaryString(identidade);

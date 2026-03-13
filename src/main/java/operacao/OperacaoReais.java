@@ -15,7 +15,7 @@ public enum OperacaoReais implements Operacao<Double> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
-		 */
+		*/
 		@Override
 		public Double faz(Double v1, Double v2) {
 			return v1 * v2;
@@ -28,7 +28,7 @@ public enum OperacaoReais implements Operacao<Double> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O resultado da operação.
-		 */
+		*/
 		@Override
 		public Double faz(Double v1, Double v2) {
 			return v1 + v2;
@@ -50,7 +50,9 @@ public enum OperacaoReais implements Operacao<Double> {
 		return operador.equals(outroOperador);
 	}
 	
-	/** {@inheritDoc} */
+	/** {@inheritDoc} 
+	 * @param v irrelevante para o resultado
+	 */
 	@Override
 	public Double getIdentidade(Double v) {
 		return identidade;
