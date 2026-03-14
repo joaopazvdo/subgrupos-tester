@@ -6,9 +6,9 @@ package operacao;
  * 
  * @author joaopazvdo
  */
-public enum OperacaoBinario implements Operacao<String> {
+public enum OperacaoBinario implements Operacao<Integer> {
 	
-	MULTIPLICACAO("*", 1) {
+	MULTIPLICACAO("*", 0b1) {
 		
 		/**
 		* Realiza a multiplicação de dois números binários.
@@ -17,16 +17,13 @@ public enum OperacaoBinario implements Operacao<String> {
 	 	* @return O produto da multiplicação.
 		*/
 		@Override
-		public String faz(String v1, String v2) {
-			int bin1 = Integer.parseInt(v1, 2);
-			int bin2 = Integer.parseInt(v2, 2);
-			
-			int produto = bin1 * bin2;
-			return Integer.toBinaryString(produto);
+		public Integer faz(Integer v1, Integer v2) {
+			Integer produto = v1 * v2;
+			return produto;
 		}
 	},
 	
-	SOMA("+", 0) {
+	SOMA("+", 0b0) {
 		
 		/**
 		* Realiza a soma de dois números binários.
@@ -35,16 +32,13 @@ public enum OperacaoBinario implements Operacao<String> {
 	 	* @return O resultado da operação.
 		*/
 		@Override
-		public String faz(String v1, String v2) {
-			int bin1 = Integer.parseInt(v1, 2);
-			int bin2 = Integer.parseInt(v2, 2);
-			
-			int soma = bin1 + bin2;
-			return Integer.toBinaryString(soma);
+		public Integer faz(Integer v1, Integer v2) {
+			int soma = v1 + v2;
+			return soma;
 		}
 	};
 	
-	private int identidade;
+	private Integer identidade;
 	
 	private String operador;
 	
@@ -57,8 +51,8 @@ public enum OperacaoBinario implements Operacao<String> {
 	 * @param v irrelevante para o resultado
 	 */
 	@Override
-	public String getIdentidade(String v) {
-		return Integer.toBinaryString(identidade);
+	public Integer getIdentidade(Integer v) {
+		return identidade;
 	}
 	
 	/** {@inheritDoc} */
