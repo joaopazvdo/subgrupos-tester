@@ -15,11 +15,20 @@ public enum OperacaoBinario implements Operacao<Integer> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
+	 	* @throws IllegalArgumentException Se algum valor for igual a 0
 		*/
 		@Override
 		public Integer faz(Integer v1, Integer v2) {
+			verificaZero(v1);
+			verificaZero(v2);
 			Integer produto = v1 * v2;
 			return produto;
+		}
+		
+		private void verificaZero(int elem) {
+			if (elem == 0b0) {
+				throw new IllegalArgumentException("Multiplicação por 0");
+			}
 		}
 	},
 	

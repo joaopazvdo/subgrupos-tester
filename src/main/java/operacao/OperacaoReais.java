@@ -15,10 +15,19 @@ public enum OperacaoReais implements Operacao<Double> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
+	 	* @throws IllegalArgumentException Se algum dos valores for igual a 0
 		*/
 		@Override
 		public Double faz(Double v1, Double v2) {
+			verificaZero(v1);
+			verificaZero(v2);
 			return v1 * v2;
+		}
+		
+		private void verificaZero(Double elem) {
+			if (elem == 0.0) {
+				throw new IllegalArgumentException("Multiplicação por 0");
+			}
 		}
 	},
 	SOMA("+", 0.0) {

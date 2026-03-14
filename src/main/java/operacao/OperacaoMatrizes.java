@@ -18,7 +18,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		 * @return O resultado da multiplicação
 		 * @throws IllegalArgumentException Se as matrizes tem dimensões diferentes.
 		 * @throws ArrayIndexOutOfBoundsException Se alguma matriz for vazia.
-		 * @throws NullPointerException Se alguma matriz for vazia.s
+		 * @throws NullPointerException Se alguma matriz for vazia
 		 */
 		@Override
 		public Double[][] faz(Double[][] v1, Double[][] v2) {
@@ -29,7 +29,6 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 			int linhas1 = v1.length;
 			int colunas1 = v1[0].length;
 
-			int linhas2 = v2.length;
 			int colunas2 = v2[0].length;
 
 			Double[][] produto = new Double[linhas1][colunas2];
@@ -137,7 +136,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 			}
 			if (numLinhas1 != numLinhas2 || numColunas1 != numColunas2) {
 				throw new IllegalArgumentException(
-						"Matrizes de tamanhos diferentes não formam grupo com multiplicação.");
+						"Matrizes de tamanhos diferentes");
 			}
 		} catch (ArrayIndexOutOfBoundsException ae) {
 			throw new ArrayIndexOutOfBoundsException("Matriz vazia não permitido");
@@ -152,7 +151,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 	 */
 	public void verificaMatrizQuadrada(Double[][] matriz) {
 		if (matriz[0].length != matriz.length) {
-			throw new IllegalArgumentException("Matrizes não quadradas não formam grupo com multiplicação");
+			throw new IllegalArgumentException("Matriz não quadrada");
 		}
 	}
 }
