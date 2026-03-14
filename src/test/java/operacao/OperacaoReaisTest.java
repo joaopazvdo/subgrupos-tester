@@ -75,5 +75,4 @@ class OperacaoReaisTest {
 		double v2 = 1.5;
 		assertEquals(v1 + v2, or.faz(v1, v2));
 	}
-
 }

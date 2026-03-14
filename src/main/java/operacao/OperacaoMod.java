@@ -15,6 +15,7 @@ public enum OperacaoMod implements Operacao<String> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
+	 	* @throws IllegalArgumentException Se os módulos forem diferentes
 		*/
 		@Override
 		public String faz(String v1, String v2) {
@@ -40,6 +41,7 @@ public enum OperacaoMod implements Operacao<String> {
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O resultado da operação.
+	 	* @throws IllegalArgumentException Se os módulos forem diferentes
 		*/
 		@Override
 		public String faz(String v1, String v2) {
