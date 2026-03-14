@@ -39,9 +39,26 @@ class OperacaoBinarioTest {
 	}
 	
 	@Test
+	void testGetIdentidadeMultiplicaoComOperacao() {
+		OperacaoBinario ob = OperacaoBinario.MULTIPLICACAO;
+		assertEquals(0b1, ob.getIdentidade(null));
+		Integer v1 = 0b11;
+		Integer identidade = ob.getIdentidade(v1);
+		assertEquals(v1, ob.faz(v1, identidade));
+	}
+	
+	@Test
 	void testGetIdentidadeAdicao() {
 		OperacaoBinario ob = OperacaoBinario.SOMA;
 		assertEquals(0b0, ob.getIdentidade(null));
+	}
+	
+	@Test
+	void testGetIdentidadeAdicaoComOperacao() {
+		OperacaoBinario ob = OperacaoBinario.SOMA;
+		Integer v1 = 0b11;
+		Integer identidade = ob.getIdentidade(v1);
+		assertEquals(v1, ob.faz(v1, identidade));
 	}
 	
 	@Test

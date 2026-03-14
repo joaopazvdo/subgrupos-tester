@@ -39,9 +39,25 @@ class OperacaoReaisTest {
 	}
 	
 	@Test
+	void testGetIdentidadeMultiplicacaoComOperacao() {
+		OperacaoReais or = OperacaoReais.MULTIPLICACAO;
+		double v1 = 1.1;
+		Double identidade = or.getIdentidade(v1);
+		assertEquals(v1, or.faz(v1, identidade));
+	}
+	
+	@Test
 	void testGetIdentidadeAdicao() {
 		OperacaoReais or = OperacaoReais.SOMA;
 		assertEquals(0, or.getIdentidade(null));
+	}
+	
+	@Test
+	void testGetIdentidadeAdicaoComOperacao() {
+		OperacaoReais or = OperacaoReais.SOMA;
+		double v1 = 1.1;
+		Double identidade = or.getIdentidade(v1);
+		assertEquals(v1, or.faz(v1, identidade));
 	}
 	
 	@Test
