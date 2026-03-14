@@ -57,7 +57,7 @@ class OperacaoBinarioTest {
 		OperacaoBinario ob = OperacaoBinario.MULTIPLICACAO;
 		Integer v1 = 0b1;
 		Integer v2 = 0b0;
-		assertEquals(0b110, ob.faz(v1, v2));
+		assertEquals(0b0, ob.faz(v1, v2));
 	}
 	
 	@Test
