@@ -1,68 +1,154 @@
 package conversor;
 
-import java.util.*;
+import conversor.Conversor;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.util.HashSet;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ConversorTest{
+public class ConversorTest {
 
-	public static void main(String[] args) {
-		
+    private Conversor conversor;
 
-		Conversor conversor = new Conversor();
+    @BeforeEach
+    public void setUp() {
+        conversor = new Conversor();
+    }
 
-		/**
-		 * Essa Parte é para testa matrixes
-		 * */
-		 String matrizA = "{2, 5, 6, 7}, {7, 8, 4, 1}, {8, 0, 1, 4}";
-		 String matriB = "{2, 4, 5, 6}, {4, 5, 6}, {4, 4, 8, 6}";
+    @Test
+    public void testMatrizCaminhoFeliz() {
+        String input = "{1, 2}, {3, 4}";
+        HashSet<Double[][]> resultado = conversor.paraConjuntoMatriz(input);
+        assertEquals(1, resultado.size());
+        Double[][] matriz = resultado.iterator().next();
+        assertEquals(1.0, matriz[0][0]);
+        assertEquals(4.0, matriz[1][1]);
+    }
 
-		System.out.println("Para matrizes: ");
-		HashSet<Double[][]> a = conversor.paraConjuntoMatriz(matrizA);
-		HashSet<Double[][]> b = conversor.paraConjuntoMatriz(matriB);
-		for(Double[][] matriA: a){
-			System.out.println(Arrays.deepToString(matriA));
-		}
-		for (Double[][] matrizB : b) {
-		    System.out.println(Arrays.deepToString(matrizB));
-		}
-		System.out.println();
+    @Test
+    public void testMatrizSemChavesRetornaVazio() {
+        String input = "1, 2, 3, 4"; 
+        HashSet<Double[][]> resultado = conversor.paraConjuntoMatriz(input);
+        Double[][] matriz = resultado.iterator().next();
+        assertEquals(0, matriz.length); 
+    }
 
-		/**
-		 * Essa parte para testar conjuntos numericos
-		 * */
-		System.out.println("Para Conjuntos Numericos:");
-		String numerosA = "2, 6, 9, 78, 55, 5.9, 1.0";
-		String numerosB = "5, 6, 0, 0, 0, 0, 0";
-		String num = "6";
+    @Test
+    public void testMatrizComLetrasLancaExcecao() {
+        String input = "{1, a}";
+        assertThrows(NumberFormatException.class, () -> conversor.paraConjuntoMatriz(input));
+    }
 
-		HashSet<Double> numA = conversor.paraConjuntoNumerico(numerosA);
-		HashSet<Double> numB = conversor.paraConjuntoNumerico(numerosB);
-		HashSet<Double> numC = conversor.paraConjuntoNumerico(num);
+    @Test
+    public void testMatrizNulaLancaExcecao() {
+        assertThrows(NullPointerException.class, () -> conversor.paraConjuntoMatriz(null));
+    }
 
-		System.out.println(numA);
-		System.out.println(numB);
-		System.out.println(numC);
-		System.out.println();
+    @Test
+    public void testMatrizComEspacosExtras() {
+        String input = "{  1 ,   2  } , { 3 , 4}";
+        HashSet<Double[][]> resultado = conversor.paraConjuntoMatriz(input);
+        Double[][] matriz = resultado.iterator().next();
+        assertEquals(1.0, matriz[0][0]);
+        assertEquals(2.0, matriz[0][1]);
+    }
 
-		/**
-		 * Para Binarios
-		 * */
-		 System.out.println("Para Binarios: ");
-		 String bi = "110 100 110";
-		 String biA = "1101010010101";
-		 System.out.println(conversor.paraConjuntoBinario(bi));
-		 System.out.println(conversor.paraConjuntoBinario(biA));
-		 System.out.println();
-		 
+    @Test
+    public void testNumericoCaminhoFeliz() {
+        String input = "1.5, 2, 3.8";
+        HashSet<Double> resultado = conversor.paraConjuntoNumerico(input);
+        assertTrue(resultado.contains(1.5) && resultado.contains(2.0) && resultado.contains(3.8));
+    }
 
-		 /**
-		  * Para Mod
-		  * */
+    @Test
+    public void testNumericoComEspacosExtras() {
+        String input = "  10 ,  20   , 30  ";
+        HashSet<Double> resultado = conversor.paraConjuntoNumerico(input);
+        assertTrue(resultado.contains(10.0));
+    }
 
-		  System.out.println("Para Mod: ");
-		  String z6 = "6";
-		  String z9 = "9";
+    @Test
+    public void testNumericoLetrasLancaExcecao() {
+        String input = "1, 2, B";
+        assertThrows(NumberFormatException.class, () -> conversor.paraConjuntoNumerico(input));
+    }
 
-		  System.out.println(conversor.paraConjuntoMod(z6));
-		  System.out.println(conversor.paraConjuntoMod(z9));
-	}
+    @Test
+    public void testNumericoStringVaziaLancaExcecao() {
+        String input = "";
+        assertThrows(NumberFormatException.class, () -> conversor.paraConjuntoNumerico(input));
+    }
+
+    @Test
+    public void testNumericoNuloLancaExcecao() {
+        assertThrows(NullPointerException.class, () -> conversor.paraConjuntoNumerico(null));
+    }
+
+    @Test
+    public void testBinarioCaminhoFeliz() {
+        String input = "000 001 010";
+        HashSet<String> resultado = conversor.paraConjuntoBinario(input);
+        assertTrue(resultado.contains("000") && resultado.contains("010"));
+        assertEquals(3, resultado.size());
+    }
+
+    @Test
+    public void testBinarioApenasUmElemento() {
+        String input = "111";
+        HashSet<String> resultado = conversor.paraConjuntoBinario(input);
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains("111"));
+    }
+
+    @Test
+    public void testBinarioEspacosDuplosGeraVazio() {
+        String input = "000  001"; 
+        HashSet<String> resultado = conversor.paraConjuntoBinario(input);
+        assertTrue(resultado.contains("")); 
+    }
+
+    @Test
+    public void testBinarioNuloLancaExcecao() {
+        assertThrows(NullPointerException.class, () -> conversor.paraConjuntoBinario(null));
+    }
+
+    @Test
+    public void testBinarioMantemZerosEsquerda() {
+        String input = "01 10 00";
+        HashSet<String> resultado = conversor.paraConjuntoBinario(input);
+        assertTrue(resultado.contains("01"));
+    }
+
+    @Test
+    public void testModCaminhoFeliz() {
+        String input = "4";
+        HashSet<Integer> resultado = conversor.paraConjuntoMod(input);
+        assertEquals(4, resultado.size());
+        assertTrue(resultado.contains(0) && resultado.contains(3));
+    }
+
+    @Test
+    public void testModZeroRetornaVazio() {
+        String input = "0";
+        HashSet<Integer> resultado = conversor.paraConjuntoMod(input);
+        assertTrue(resultado.isEmpty());
+    }
+
+    @Test
+    public void testModNegativoRetornaVazio() {
+        String input = "-5";
+        HashSet<Integer> resultado = conversor.paraConjuntoMod(input);
+        assertTrue(resultado.isEmpty());
+    }
+
+    @Test
+    public void testModNuloLancaExcecao() {
+        assertThrows(NullPointerException.class, () -> conversor.paraConjuntoMod(null));
+    }
+
+    @Test
+    public void testModLetraLancaExcecao() {
+        String input = "Z";
+        assertThrows(NumberFormatException.class, () -> conversor.paraConjuntoMod(input));
+    }
 }
