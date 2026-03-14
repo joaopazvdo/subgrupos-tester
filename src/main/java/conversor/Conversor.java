@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 import java.util.HashSet;
 
 public class Conversor {
@@ -85,17 +84,24 @@ public class Conversor {
     /**
      * Metodo reponsavel por pegar um String no formato:
      * z6 = "6"
-     * e retornar um hasSet de todos os numero de 0  a z6 - 1
+     * e retornar um hasSet com as string "0 mod 6" , "1 mod 6", assim sussecivamente...
      * */
     public static HashSet<String> paraConjuntoMod(String conjunto){
         HashSet<String> conj = new HashSet<>();
 
         int[] numeros = Arrays.stream(conjunto.split("\\D+")).filter(s -> !s.isEmpty()).mapToInt(Integer::parseInt).toArray();
-        for(int i = 0; i < numeros.length; i++){
-            int num = numeros[i];
-            String mod = String.format("%d mod %d", num, numeros.length);
 
-            conj.add(mod);
+        for(int i = 0; i < numeros.length; i++){
+            int numNoArray = numeros[i];
+
+            for(int j = 0; j < numNoArray; j++){
+
+                int num  = j % numNoArray;
+
+                String mod = String.format("%d mod %d", num, numNoArray);
+
+                conj.add(mod);
+            }
         }
 
         return conj;
