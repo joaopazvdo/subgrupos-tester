@@ -15,10 +15,12 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		 * @param v2 Segunda matriz
 		 * @return O resultado da multiplicação
 		 * @throws IllegalArgumentException Se as matrizes tiverem número de
-		 * colunas ou linhas diferentes.
+		 * colunas ou linhas diferentes ou se não for quadrada.
 		 * */
 		@Override
 		public Double[][] faz(Double[][] v1, Double[][] v2) {
+			verificaMatrizQuadrada(v1);
+			verificaMatrizQuadrada(v2);
 			verificaTamMatrizez(v1, v2);
 			Double[][] produto = new Double[v1.length][v2[0].length];
 			
@@ -100,7 +102,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 	}
 	
 	/**
-	 * Verifica se o tamanho das matrizes tem as dimensões igauis.
+	 * Verifica se as matrizes tem as dimensões iguais.
 	 * @param v1 Primeira matriz
 	 * @param v2 Segunda matriz
 	 * @throws IllegalArgumentException Se as matrizes tem dimensões diferentes.
@@ -114,6 +116,17 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		
 		if (numLinhas1 != numLinhas2 || numColunas1 != numColunas2) {
 			throw new IllegalArgumentException("Matrizes de tamanhos diferentes não formam grupo com multiplicação.");
+		}
+	}
+	
+	/**
+	 * Verifica se a matriz é quadrada.
+	 * @param matriz
+	 * @throws IllegalArgumentException Se a matriz não for quadrada.
+	 */
+	public void verificaMatrizQuadrada(Double[][] matriz) {
+		if (matriz.length != matriz[0].length) {
+			throw new IllegalArgumentException("Matrizes não quadradas não formam grupo com multiplicação");
 		}
 	}
 }
