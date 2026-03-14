@@ -1,7 +1,7 @@
 package subgrupostester;
 
 import conversor.Conversor;
-import java.util.*;
+import java.util.HashSet;
 
 /**
  * Classe responsável por testar os resultados de subgrupos e acionar o relatório.
@@ -14,7 +14,6 @@ public class SubGruposTester {
 	 */
 	public SubGruposTester(){
 	}
-
 	/**
 	 * Realiza o teste de subgrupo para conjuntos numéricos.
 	 */
