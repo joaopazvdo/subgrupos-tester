@@ -30,7 +30,7 @@ public enum OperacaoReais implements Operacao<Double> {
 			}
 		}
 	},
-	SOMA("+", 0.0) {
+	ADICAO("+", 0.0) {
 
 		/**
 		* Realiza a soma de dois números reais.

@@ -43,7 +43,7 @@ public enum OperacaoMod implements Operacao<String> {
 		}
 	},
 	
-	SOMA("+", 0) {
+	ADICAO("+", 0) {
 		
 		/**
 		* Realiza a soma de duas classes de congruência.

@@ -32,7 +32,7 @@ public enum OperacaoBinario implements Operacao<Integer> {
 		}
 	},
 	
-	SOMA("+", 0b0) {
+	ADICAO("+", 0b0) {
 		
 		/**
 		* Realiza a soma de dois números binários.

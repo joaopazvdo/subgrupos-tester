@@ -46,7 +46,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		}
 	},
 
-	SOMA("+", 0.0) {
+	ADICAO("+", 0.0) {
 
 		/**
 		 * Realiza a soma de duas matrizes.
