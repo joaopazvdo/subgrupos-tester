@@ -7,7 +7,7 @@ import java.awt.*;
  * Interface Gráfica de Usuário (GUI) para o Assistente de Verificação de Subgrupos.
  * Esta classe utiliza um layout de cartões (CardLayout) para guiar o usuário através
  * de um processo de cinco etapas para validar se um subconjunto X é um subgrupo de G.
- * * @author Jose-Vinicius-Tavares-Silva
+ * * @author Jose Vinicius Tavares Silva
  * @version 1.0
  */
 

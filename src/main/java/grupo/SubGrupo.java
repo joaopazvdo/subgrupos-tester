@@ -6,7 +6,7 @@ import operacao.Operacao;
 /**
  * Classe que verifica se um subconjunto H é um subgrupo de G.
  * * @param <T> Tipo dos elementos.
- * @author Viniciusdionizio (Marcos Vinicius)
+ * @author Marcos_Vinicius
  */
 public class SubGrupo<T> extends Grupo<T> {
 	
