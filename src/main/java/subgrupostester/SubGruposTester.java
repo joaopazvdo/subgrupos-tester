@@ -1,13 +1,17 @@
-/**
- * @author jose-kauan-pereira00(José Kauan Pereira)
- * */
- 
  package subgrupostester;
 
 import conversor.Conversor;
+import grupo.SubGrupo;
+import operacao.Operacao;
+import operacao.OperacaoController;
+
 import java.util.HashSet;
 
-
+/**
+ * Controlador do sistema testador de subgrupos.
+ * 
+ * @author jose-kauan-pereira00(José Kauan Pereira)
+ * */
 public class SubGruposTester {
 	public SubGruposTester(){
 	}
@@ -15,11 +19,11 @@ public class SubGruposTester {
 	public boolean ehSubGrupoNumerico(String conjuntoOriginal, String operacao, 
 		String subConjunto){
 
-		HashSet<Double> conjunto = conversor.paraConjuntoNumerico(conjuntoOriginal);
-		HashSet<Double> subConj = conversor.paraConjuntoNumerico(subConjunto);
-		Operacao op = OperacaoController.getOperacaoNumerica(operacao);
+		HashSet<Double> conjunto = Conversor.paraConjuntoNumerico(conjuntoOriginal);
+		HashSet<Double> subConj = Conversor.paraConjuntoNumerico(subConjunto);
+		Operacao<Double> op = OperacaoController.getOperacaoNumerica(operacao);
 
-		SubGrupo SubGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<Double> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
 		return subGrupo.ehSubGrupo();
 	}
@@ -27,11 +31,11 @@ public class SubGruposTester {
 	public boolean ehSubGrupoMatriz(String conjuntoOriginal, String operacao,
 	 String subConjunto){
 
-		HashSet<Double[][]> conjunto = conversor.paraConjuntoMatriz(conjuntoOriginal);
-		HashSet<Double[][]> subConj = conversor.paraConjuntoMatriz(subConjunto);
-		Operacao op = OperacaoController.getOperacaoMatriz(operacao);
+		HashSet<Double[][]> conjunto = Conversor.paraConjuntoMatriz(conjuntoOriginal);
+		HashSet<Double[][]> subConj = Conversor.paraConjuntoMatriz(subConjunto);
+		Operacao<Double[][]> op = OperacaoController.getOperacaoMatriz(operacao);
 
-		SubGrupo SubGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<Double[][]> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
 		return subGrupo.ehSubGrupo();
 
@@ -41,11 +45,11 @@ public class SubGruposTester {
 	public boolean ehSubGrupoBinario(String conjuntoOriginal, String operacao,
 	 String subConjunto){
 
-	 	HashSet<String> conjunto = conversor.paraConjuntoBinario(conjuntoOriginal);
-		HashSet<String> subConj = conversor.paraConjuntoBinario(subConjunto);
-		Operacao op = OperacaoController.getOperacaoBinaria(operacao);
+	 	HashSet<Integer> conjunto = Conversor.paraConjuntoBinario(conjuntoOriginal);
+		HashSet<Integer> subConj = Conversor.paraConjuntoBinario(subConjunto);
+		Operacao<Integer> op = OperacaoController.getOperacaoBinaria(operacao);
 
-		SubGrupo SubGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<Integer> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
 		return subGrupo.ehSubGrupo();
 
@@ -54,11 +58,11 @@ public class SubGruposTester {
 	public boolean ehSubGrupoMod(String conjuntoOriginal, String operacao,
 	 String subConjunto){
 
-	 	HashSet<Integer> conjunto = conversor.paraConjuntoMod(conjuntoOriginal);
-		HashSet<Integer> subConj = conversor.paraConjuntoMod(subConjunto);
-		Operacao op = OperacaoController.getOperacaoClasseCongruencia(operacao);
+	 	HashSet<String> conjunto = Conversor.paraConjuntoMod(conjuntoOriginal);
+		HashSet<String> subConj = Conversor.paraConjuntoMod(subConjunto);
+		Operacao<String> op = OperacaoController.getOperacaoMod(operacao);
 
-		SubGrupo SubGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<String> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
 		return subGrupo.ehSubGrupo();
 	}

@@ -1,16 +1,16 @@
 package grupo;
 
-import java.util.*;
+import java.util.HashSet;
 import operacao.Operacao;
 
 /**
  * Classe que verifica se um subconjunto H é um subgrupo de G.
  * * @param <T> Tipo dos elementos.
- * @author Marcos_Vinicius
+ * @author Viniciusdionizio (Marcos Vinicius)
  */
 public class SubGrupo<T> extends Grupo<T> {
 	
-	private Set<T> subconjunto;
+	private HashSet<T> subconjunto;
 
 	/**
 	 * Cria um verificador de subgrupo.
@@ -18,7 +18,7 @@ public class SubGrupo<T> extends Grupo<T> {
 	 * @param op A operação do grupo.
 	 * @param subconjunto O subconjunto a ser testado (H).
 	 */
-	public SubGrupo(Set<T> conjunto, Operacao<T> op, Set<T> subconjunto) {
+	public SubGrupo(HashSet<T> conjunto, Operacao<T> op, HashSet<T> subconjunto) {
 		super(conjunto, op);
 		this.subconjunto = subconjunto;
 	}

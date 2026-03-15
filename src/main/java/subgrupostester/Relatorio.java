@@ -2,6 +2,8 @@ package subgrupostester;
 
 /**
  * Classe responsável por gerar e formatar os relatórios de teste.
+ * 
+ * @author henriquejesusglc
  */
 public class Relatorio {
 

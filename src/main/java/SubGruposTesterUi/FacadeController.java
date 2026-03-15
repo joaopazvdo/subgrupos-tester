@@ -6,7 +6,7 @@ import subgrupostester.*;
  * Controlador de Fachada (Facade) para o sistema de verificação de subgrupos.
  * Esta classe atua como um mediador entre a interface gráfica e a lógica de negócio,
  * simplificando o processo de validação de estruturas algébricas.
- * * @author José Vinícius Tavares Silva
+ * * @author Jose-Vinicius-Tavares-Silva
  * @version 1.0
  */
 

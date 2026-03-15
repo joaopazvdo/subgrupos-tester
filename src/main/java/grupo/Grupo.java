@@ -6,7 +6,7 @@ import operacao.Operacao;
 /**
  * Classe que verifica se um conjunto e uma operação formam um Grupo.
  * * @param <T> Tipo dos elementos (ex: Integer, String).
- * @author Marcos_Vinicius
+ * @author Viniciusdionizio (Marcos Vinicius)
  */
 public class Grupo<T> {
 	

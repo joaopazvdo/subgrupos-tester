@@ -7,7 +7,7 @@ import java.awt.*;
  * Interface Gráfica de Usuário (GUI) para o Assistente de Verificação de Subgrupos.
  * Esta classe utiliza um layout de cartões (CardLayout) para guiar o usuário através
  * de um processo de cinco etapas para validar se um subconjunto X é um subgrupo de G.
- * * @author José Vinícius Tavares Silva
+ * * @author Jose-Vinicius-Tavares-Silva
  * @version 1.0
  */
 
@@ -24,7 +24,7 @@ public class VerificadorSubgrupoUI extends JFrame {
     /** Armazena o tipo de conjunto selecionado (ex: Matriz, Binário). */
     private String tipoSelecionado;
     
-    /** Armazena a operação matemática selecionada (Soma ou Multiplicação). */
+    /** Armazena a operação matemática selecionada (Adição ou Multiplicação). */
     private String operacaoSelecionada;
     
     /** Armazena a representação textual dos elementos do Grupo G. */
@@ -88,7 +88,7 @@ public class VerificadorSubgrupoUI extends JFrame {
         
         p.add(new JLabel("2. Escolha a Operação:", SwingConstants.CENTER));
         
-        String[] operacoes = {"Soma", "Multiplicação"};
+        String[] operacoes = {"Adicao", "Multiplicacao"};
         for (String op : operacoes) {
             JButton btn = new JButton(op);
             btn.addActionListener(e -> {
