@@ -1,12 +1,14 @@
-package subgrupostester;
+/**
+ * @author jose-kauan-pereira00(José Kauan Pereira)
+ * */
+ 
+ package subgrupostester;
 
 import conversor.Conversor;
 import java.util.HashSet;
 
 
 public class SubGruposTester {
-	private Conversor conversor = new Conversor();
-
 	public SubGruposTester(){
 	}
 

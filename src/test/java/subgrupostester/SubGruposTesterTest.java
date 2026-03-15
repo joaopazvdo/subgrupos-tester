@@ -1,3 +1,7 @@
+/**
+ * @author jose-kauan-pereira00(José Kauan Pereira)
+ * */
+ 
 package subgrupostester;
 
 import conversor.Conversor;
