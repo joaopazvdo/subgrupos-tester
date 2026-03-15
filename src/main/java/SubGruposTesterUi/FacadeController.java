@@ -12,7 +12,7 @@ import subgrupostester.*;
 
 public class FacadeController {
 	/** Objeto responsável pela formatação e geração dos relatórios de análise. */
-	private Relatorio re;
+//	private Relatorio re;
 	
 	/** Motor de testes que contém os algoritmos de verificação para diferentes conjuntos. */
 	private SubGruposTester sub;
@@ -22,7 +22,6 @@ public class FacadeController {
      * necessárias para o funcionamento da fachada.
      */
 	public FacadeController() {
-		this.re = new Relatorio();
 		this.sub = new SubGruposTester();
 	}
 
@@ -37,32 +36,17 @@ public class FacadeController {
      * de fechamento, elemento neutro e elemento inverso.
      */
 	public String processarVerificacao(String tipo, String operacao, String grupoG, String subgrupoX) {
-		boolean resultado = false;
-
 		switch (tipo) {
 		case "Numérico":
-			resultado = sub.ehSubGrupoNumerico(grupoG, operacao, subgrupoX);
-			break;
+			return sub.ehSubGrupoNumerico(grupoG, operacao, subgrupoX);
 		case "Matriz":
-			resultado = sub.ehSubGrupoMatriz(grupoG, operacao, subgrupoX);
-			break;
+			return sub.ehSubGrupoMatriz(grupoG, operacao, subgrupoX);
 		case "Binário":
-			resultado = sub.ehSubGrupoBinario(grupoG, operacao, subgrupoX);
-			break;
+			return sub.ehSubGrupoBinario(grupoG, operacao, subgrupoX);
 		case "Mod":
-			resultado = sub.ehSubGrupoMod(grupoG, operacao, subgrupoX);
-			break;
+			return sub.ehSubGrupoMod(grupoG, operacao, subgrupoX);
 		default:
 			return "Erro: Tipo de conjunto desconhecido.";
 		}
-
-		// Define as mensagens de status baseadas no resultado da validação
-		String txtFechamento = resultado ? "[OK] Propriedade verificada." : "[X] Falha na validação.";
-		String txtNeutro = resultado ? "[OK] Elemento neutro presente." : "[X] Falha na validação.";
-		String txtInverso = resultado ? "[OK] Elemento inverso presente." : "[X] Falha na validação.";
-
-		// Retorna o relatório final formatado pela classe Relatorio
-		return re.gerarRelatorio("Resultado da Análise - " + tipo, grupoG, operacao, subgrupoX, txtFechamento,
-				txtNeutro, txtInverso, resultado);
 	}
 }

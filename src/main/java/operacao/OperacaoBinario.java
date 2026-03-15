@@ -8,31 +8,22 @@ package operacao;
  */
 public enum OperacaoBinario implements Operacao<Integer> {
 	
-	MULTIPLICACAO("*", 0b1) {
+	MULTIPLICACAO("Multiplicação", 0b1) {
 		
 		/**
 		* Realiza a multiplicação de dois números binários.
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
-	 	* @throws IllegalArgumentException Se algum valor for igual a 0
 		*/
 		@Override
 		public Integer faz(Integer v1, Integer v2) {
-			verificaZero(v1);
-			verificaZero(v2);
 			Integer produto = v1 * v2;
 			return produto;
 		}
-		
-		private void verificaZero(int elem) {
-			if (elem == 0b0) {
-				throw new IllegalArgumentException("Multiplicação por 0");
-			}
-		}
 	},
 	
-	ADICAO("+", 0b0) {
+	ADICAO("Adição", 0b0) {
 		
 		/**
 		* Realiza a soma de dois números binários.
@@ -68,5 +59,11 @@ public enum OperacaoBinario implements Operacao<Integer> {
 	@Override
 	public boolean operadorEquals(String outroOperador) {
 		return this.operador.equals(outroOperador);
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public String getOperador() {
+		return operador;
 	}
 }

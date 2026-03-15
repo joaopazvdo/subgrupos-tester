@@ -24,6 +24,12 @@ public interface Operacao<T> {
 	public T getIdentidade(T v);
 	
 	/**
+	 * Retorna o nome da operação.
+	 * @return Nome da operação
+	 */
+	public String getOperador();
+	
+	/**
 	 * Verifica se a representação textual fornecida corresponde ao símbolo 
 	 * deste operador.
 	 * @param outroOperador String representando o operador a ser comparado.

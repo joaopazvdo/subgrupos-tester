@@ -8,7 +8,7 @@ package operacao;
  */
 public enum OperacaoMatrizes implements Operacao<Double[][]> {
 
-	MULTIPLICACAO("*", 1.0) {
+	MULTIPLICACAO("Multiplicação", 1.0) {
 
 		/**
 		 * Realiza a multiplicação de duas matrizes
@@ -46,7 +46,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		}
 	},
 
-	ADICAO("+", 0.0) {
+	ADICAO("Adição", 0.0) {
 
 		/**
 		 * Realiza a soma de duas matrizes.
@@ -153,5 +153,11 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		if (matriz[0].length != matriz.length) {
 			throw new IllegalArgumentException("Matriz não quadrada");
 		}
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public String getOperador() {
+		return operador;
 	}
 }

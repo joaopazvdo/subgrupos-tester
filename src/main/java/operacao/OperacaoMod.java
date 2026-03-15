@@ -8,15 +8,14 @@ package operacao;
  */
 public enum OperacaoMod implements Operacao<String> {
 
-	MULTIPLICACAO("*", 1) {
+	MULTIPLICACAO("Multiplicação", 1) {
 	
 		/**
 		* Realiza a multiplicação de duas classes de congruência.
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
-	 	* @throws IllegalArgumentException Se os módulos forem diferentes ou se há
-	 	* algum número congruênte a 0
+	 	* @throws IllegalArgumentException Se os módulos forem diferentes
 		*/
 		@Override
 		public String faz(String v1, String v2) {
@@ -29,21 +28,12 @@ public enum OperacaoMod implements Operacao<String> {
 			int mod2 = Integer.parseInt(operando2_mod2[1]);
 			
 			verificaModsDiferentes(mod1, mod2);
-			verificaZero(operando1 % mod1);
-			verificaZero(operando2 % mod2);
-			
 			int resultado = (operando1 * operando2) % mod1;
 			return resultado + " mod " + mod1;
 		}
-		
-		private void verificaZero(int elem) {
-			if (elem == 0) {
-				throw new IllegalArgumentException("Multiplicação por 0");
-			}
-		}
 	},
 	
-	ADICAO("+", 0) {
+	ADICAO("Adição", 0) {
 		
 		/**
 		* Realiza a soma de duas classes de congruência.
@@ -106,5 +96,11 @@ public enum OperacaoMod implements Operacao<String> {
 		if (mod1 != mod2) {
 			throw new IllegalArgumentException("Operações com mods diferentes inválidas");
 		}
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public String getOperador() {
+		return operador;
 	}
 }

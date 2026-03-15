@@ -8,29 +8,21 @@ package operacao;
  */
 public enum OperacaoReais implements Operacao<Double> {
 	
-	MULTIPLICACAO("*", 1.0) {
+	MULTIPLICACAO("Multiplicação", 1.0) {
 		
 		/**
 		* Realiza a multiplicação de dois números reais.
 		* @param v1 Primeiro operando.
 		* @param v2 Segundo operando.
 	 	* @return O produto da multiplicação.
-	 	* @throws IllegalArgumentException Se algum dos valores for igual a 0
 		*/
 		@Override
 		public Double faz(Double v1, Double v2) {
-			verificaZero(v1);
-			verificaZero(v2);
 			return v1 * v2;
 		}
-		
-		private void verificaZero(Double elem) {
-			if (elem == 0.0) {
-				throw new IllegalArgumentException("Multiplicação por 0");
-			}
-		}
 	},
-	ADICAO("+", 0.0) {
+	
+	ADICAO("Adição", 0.0) {
 
 		/**
 		* Realiza a soma de dois números reais.
@@ -65,5 +57,11 @@ public enum OperacaoReais implements Operacao<Double> {
 	@Override
 	public Double getIdentidade(Double v) {
 		return identidade;
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public String getOperador() {
+		return operador;
 	}
 }

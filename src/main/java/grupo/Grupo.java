@@ -1,6 +1,7 @@
 package grupo;
 
-import java.util.*;
+import java.util.HashSet;
+
 import operacao.Operacao;
 
 /**
@@ -10,16 +11,16 @@ import operacao.Operacao;
  */
 public class Grupo<T> {
 	
-	private Set<T> conjunto;
+	private HashSet<T> conjunto;
 	private Operacao<T> op;
 	private T identidade;
 	
 	/**
 	 * Cria um novo verificador de grupo.
-	 * @param conjunto O Set de elementos.
+	 * @param conjunto O HashSet de elementos.
 	 * @param op A operação a ser testada.
 	 */
-	public Grupo(Set<T> conjunto, Operacao<T> op) {
+	public Grupo(HashSet<T> conjunto, Operacao<T> op) {
 		this.conjunto = conjunto;
 		this.op = op;
 		this.identidade = null;
@@ -101,14 +102,18 @@ public class Grupo<T> {
 		return true;
 	}
 	
-	public Set<T> getConjunto() { 
+	public HashSet<T> getConjunto() { 
 		return conjunto;
 	}
 	
 	public Operacao<T> getOperacao() { 
 		return op; 
-	
 	}
+	
+	public String getOperador() {
+		return op.getOperador();
+	}
+	
 	public T getIdentidade() { 
 		return identidade; 
 	}

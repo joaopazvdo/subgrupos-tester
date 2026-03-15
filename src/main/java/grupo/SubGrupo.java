@@ -34,7 +34,7 @@ public class SubGrupo<T> extends Grupo<T> {
 	    }
 
 		// Valida se o grupo pai é um grupo e se o subconjunto herda as propriedades
-		if (!super.ehGrupo() || !subEhFechado() || !subTemIdentidade() || !subTemInverso()) {
+		if (!super.ehGrupo() || !ehSubConjunto()||  !subEhFechado() || !subTemIdentidade() || !subTemInverso()) {
 	        return false; 
 	    }
 		
@@ -81,5 +81,23 @@ public class SubGrupo<T> extends Grupo<T> {
 			if (!achouInversoEmH) return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Verifica se os elementos do subconjunto estão dentro do conjunto original e se eles não
+	 * são o mesmo conjunto. 
+	 */
+	public boolean ehSubConjunto() {
+		boolean ehSubConjunto = true;
+		for (T a : subconjunto) {
+			if (!super.getConjunto().contains(a)) {
+				ehSubConjunto = false;
+			}
+		}
+		return ehSubConjunto && subconjunto.size() < super.getConjunto().size();
+	}
+	
+	public HashSet<T> getSubconjunto() {
+		return subconjunto;
 	}
 }
