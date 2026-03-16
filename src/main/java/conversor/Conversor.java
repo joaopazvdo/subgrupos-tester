@@ -87,25 +87,27 @@ public class Conversor {
 
     /**
      * Metodo reponsavel por pegar um String no formato:
-     * z6 = "6"
+     * z6 = [0, 1, 2, 3, 4,5] 6
      * e retornar um hasSet com as string "0 mod 6" , "1 mod 6", assim sussecivamente...
      * */
     public static HashSet<String> paraConjuntoMod(String conjunto){
         HashSet<String> conj = new HashSet<>();
 
-        int[] numeros = Arrays.stream(conjunto.split("\\D+")).filter(s -> !s.isEmpty()).mapToInt(Integer::parseInt).toArray();
+        int fechamento = conjunto.indexOf("]");
 
-        for(int i = 0; i < numeros.length; i++){
-            int numNoArray = numeros[i];
+        String numeroTexto = conjunto.substring(fechamento + 1).trim();
 
-            for(int j = 0; j < numNoArray; j++){
+        int mod = Integer.parseInt(numeroTexto);
 
-                int num  = j % numNoArray;
+        String arrayString = conjunto.substring(1, fechamento);
 
-                String mod = String.format("%d mod %d", num, numNoArray);
+        String[] partes = arrayString.split(",");
 
-                conj.add(mod);
-            }
+        for(int i = 0; i < partes.length; i++){
+            int numero = Integer.parseInt(partes[i].trim());
+            int numMod = numero % mod;
+            String modulo = String.format("%d mod %d",numMod, mod);
+            conj.add(modulo);
         }
 
         return conj;
