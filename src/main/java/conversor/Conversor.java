@@ -4,40 +4,38 @@
 
 package conversor;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.HashSet;
 
 public class Conversor {
 
     /**
      * Método responsavel por trnasformar uma String no formato:
-     * s = 
-     * "n1, n2, n3",
-     * "n4, n5, n6",
-     * "n7, n8, n9"
+     * no formato "[[n1, n2,] , [n3, n4]] , [[m5, n6,], [n7, n8]]"
      * em uma matriz de Double, que sera armazenada em um hashSet.
      * */
 	public static HashSet<Double[][]> paraConjuntoMatriz(String conjuto){
-        HashSet<Double[][]> conj = new HashSet<>();
+       HashSet<Double[][]> conj = new HashSet<>();
+        
+        Pattern padraoMatriz = Pattern.compile("\\[\\[(.*?)\\]\\]");
+        Matcher matcher = padraoMatriz.matcher(conjuto);
 
-        conjuto = conjuto.replaceAll("\\s+", "");
+        while (matcher.find()) {
+            String interiorDaMatriz = matcher.group(1); 
+            String[] linhasStr = interiorDaMatriz.split("\\]\\s*,\\s*\\[");
+            Double[][] matriz = new Double[linhasStr.length][];
 
-        conjuto = conjuto.substring(2, conjuto.length() -2);
-
-        String[] linhas = conjuto.split("\\],\\[");
-
-        Double[][] matriz = new Double[linhas.length][];
-
-        for(int i = 0; i < linhas.length;i++){
-            String[] colunas = linhas[i].split(",");
-            matriz[i] = new Double[colunas.length];
-
-            for(int j =0; j <colunas.length; j++){
-                matriz[i][j] = Double.valueOf(colunas[j]);
+            for (int i = 0; i < linhasStr.length; i++) {
+                String[] colunasStr = linhasStr[i].split(",");
+                matriz[i] = new Double[colunasStr.length];
+                
+                for (int j = 0; j < colunasStr.length; j++) {
+                    matriz[i][j] = Double.valueOf(colunasStr[j].trim());
+                }
             }
+            conj.add(matriz);
         }
-
-        conj.add(matriz);
-
         return conj;
 	}
 
