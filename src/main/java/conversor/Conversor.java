@@ -1,48 +1,42 @@
+/**
+ * @author jose-kauan-pereira00(José Kauan Pereira)
+ * */
+
 package conversor;
 
-import java.util.*;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.HashSet;
 
 public class Conversor {
 
-	public Conversor(){
-
-	}
-
     /**
      * Método responsavel por trnasformar uma String no formato:
-     * s = 
-     * "n1, n2, n3",
-     * "n4, n5, n6",
-     * "n7, n8, n9"
+     * no formato "[[n1, n2,] , [n3, n4]] , [[m5, n6,], [n7, n8]]"
      * em uma matriz de Double, que sera armazenada em um hashSet.
      * */
-	public HashSet<Double[][]> paraConjuntoMatriz(String conjuto){
-		List<Double[]> linhasTemporarias = new ArrayList<>();
+	public static HashSet<Double[][]> paraConjuntoMatriz(String conjuto){
+       HashSet<Double[][]> conj = new HashSet<>();
+        
+        Pattern padraoMatriz = Pattern.compile("\\[\\[(.*?)\\]\\]");
+        Matcher matcher = padraoMatriz.matcher(conjuto);
 
-        Pattern padrao = Pattern.compile("\\{([^}]+)\\}");
-        Matcher buscador = padrao.matcher(conjuto);
+        while (matcher.find()) {
+            String interiorDaMatriz = matcher.group(1); 
+            String[] linhasStr = interiorDaMatriz.split("\\]\\s*,\\s*\\[");
+            Double[][] matriz = new Double[linhasStr.length][];
 
-        while (buscador.find()) {
-            String conteudoLinha = buscador.group(1);
-
-            String[] numerosEmTexto = conteudoLinha.split(",");
-            Double[] linhaAtual = new Double[numerosEmTexto.length];
-
-            for (int i = 0; i < numerosEmTexto.length; i++) {
-                linhaAtual[i] = Double.parseDouble(numerosEmTexto[i].trim());
+            for (int i = 0; i < linhasStr.length; i++) {
+                String[] colunasStr = linhasStr[i].split(",");
+                matriz[i] = new Double[colunasStr.length];
+                
+                for (int j = 0; j < colunasStr.length; j++) {
+                    matriz[i][j] = Double.valueOf(colunasStr[j].trim());
+                }
             }
-
-            linhasTemporarias.add(linhaAtual);
+            conj.add(matriz);
         }
-
-        Double[][] matrizFinal = linhasTemporarias.toArray(new Double[0][0]);
-
-        HashSet<Double[][]> conjunto = new HashSet<>();
-
-        conjunto.add(matrizFinal);
-
-        return conjunto;
+        return conj;
 	}
 
     /**
@@ -50,7 +44,7 @@ public class Conversor {
      * s = "n1, n2, n3, n4, n5"
      * e trasforma-la em um hashSet com esses números
      * */
-    public HashSet<Double> paraConjuntoNumerico(String conjunto){
+    public static HashSet<Double> paraConjuntoNumerico(String conjunto){
         HashSet<Double> conj = new HashSet<>();
 
         String[] numeros = conjunto.split(",");
@@ -67,15 +61,15 @@ public class Conversor {
     /**
      * Metodo responsavel por pegar uma String no formato:
      * s = "000 000 000"
-     * e retornar "000" "000" "000"
+     * e retornar [000, 000, 000]
      * */
-    public HashSet<String> paraConjuntoBinario(String conjunto){
-        HashSet<String> conj = new HashSet<>();
+    public static HashSet<Integer> paraConjuntoBinario(String conjunto){
+        HashSet<Integer> conj = new HashSet<>();
 
-        String[] numeros = conjunto.split(" ");
+        String[] numeros = conjunto.trim().split(" ");
 
         for(String parte: numeros){
-            String num = parte.trim();
+            Integer num = Integer.parseInt(parte.trim(), 2);
             conj.add(num);
         }
         return conj;
@@ -83,15 +77,27 @@ public class Conversor {
 
     /**
      * Metodo reponsavel por pegar um String no formato:
-     * z6 = "6"
-     * e retornar um hasSet de todos os numero de 0  a z6 - 1
+     * z6 = [0, 1, 2, 3, 4,5] 6
+     * e retornar um hasSet com as string "0 mod 6" , "1 mod 6", assim sussecivamente...
      * */
-    public HashSet<Integer> paraConjuntoMod(String conjunto){
-        int z = Integer.parseInt(conjunto.trim());
-        HashSet<Integer> conj = new HashSet<>();
+    public static HashSet<String> paraConjuntoMod(String conjunto){
+        HashSet<String> conj = new HashSet<>();
 
-        for(int i = 0; i < z; i++){
-            conj.add(i);
+        int fechamento = conjunto.indexOf("]");
+
+        String numeroTexto = conjunto.substring(fechamento + 1).trim();
+
+        int mod = Integer.parseInt(numeroTexto);
+
+        String arrayString = conjunto.substring(1, fechamento);
+
+        String[] partes = arrayString.split(",");
+
+        for(int i = 0; i < partes.length; i++){
+            int numero = Integer.parseInt(partes[i].trim());
+            int numMod = Math.floorMod(numero, mod);
+            String modulo = String.format("%d mod %d",numMod, mod);
+            conj.add(modulo);
         }
 
         return conj;

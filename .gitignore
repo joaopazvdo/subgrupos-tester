@@ -2,6 +2,7 @@
 target/
 bin/
 *.class
+lib/
 
 # Configurações específicas do Eclipse (NÃO SUBIR)
 .settings/

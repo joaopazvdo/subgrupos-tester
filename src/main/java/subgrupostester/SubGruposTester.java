@@ -1,112 +1,71 @@
-package subgrupostester;
+ package subgrupostester;
 
 import conversor.Conversor;
+import grupo.SubGrupo;
+import operacao.Operacao;
+import operacao.OperacaoController;
+
 import java.util.HashSet;
 
 /**
- * Classe responsável por testar os resultados de subgrupos e acionar o relatório.
- */
+ * Controlador do sistema testador de subgrupos.
+ * 
+ * @author jose-kauan-pereira00(José Kauan Pereira)
+ * */
 public class SubGruposTester {
-	private Conversor conversor = new Conversor();
-	private Relatorio relatorio = new Relatorio(); 
-	/**
-	 * Construtor padrão da classe.
-	 */
 	public SubGruposTester(){
 	}
-	/**
-	 * Realiza o teste de subgrupo para conjuntos numéricos.
-	 */
+
 	public String ehSubGrupoNumerico(String conjuntoOriginal, String operacao, 
-		String subConjunto){
-		HashSet<Double> conjunto = conversor.paraConjuntoNumerico(conjuntoOriginal);
-		HashSet<Double> subConj = conversor.paraConjuntoNumerico(subConjunto);
-		Operacao op = OperacaoController.getOperacaoNumerica(operacao);
-		SubGrupo subGrupo = new SubGrupo(conjunto, op, subConj);
-		return relatorio.gerarRelatorio(
-				"Resultado Teste de Subgrupo", 
-				conjuntoOriginal, 
-				operacao, 
-				subConjunto, 
-				subGrupo.testarFechamento(),
-				subGrupo.testarElementoNeutro(),
-				subGrupo.testarElementoInverso(),
-				subGrupo.ehSubGrupo()
-			);
-		
+			String subConjunto){
+		HashSet<Double> conjunto = Conversor.paraConjuntoNumerico(conjuntoOriginal);
+		HashSet<Double> subConj = Conversor.paraConjuntoNumerico(subConjunto);
+		Operacao<Double> op = OperacaoController.getOperacaoNumerica(operacao);
+
+		SubGrupo<Double> subGrupo = new SubGrupo<>(conjunto, op, subConj);
+
+		Relatorio<Double> relatorio = new Relatorio<>(subGrupo);
+		return relatorio.gerarRelatorio();
 	}
 
-	/**
-	 * Realiza o teste de subgrupo para conjuntos de matrizes.
-	 */
 	public String ehSubGrupoMatriz(String conjuntoOriginal, String operacao,
-	 String subConjunto){
+			 String subConjunto){
 
-		HashSet<Double[][]> conjunto = conversor.paraConjuntoMatriz(conjuntoOriginal);
-		HashSet<Double[][]> subConj = conversor.paraConjuntoMatriz(subConjunto);
-		Operacao op = OperacaoController.getOperacaoMatriz(operacao);
+		HashSet<Double[][]> conjunto = Conversor.paraConjuntoMatriz(conjuntoOriginal);
+		HashSet<Double[][]> subConj = Conversor.paraConjuntoMatriz(subConjunto);
+		Operacao<Double[][]> op = OperacaoController.getOperacaoMatriz(operacao);
 
-		SubGrupo subGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<Double[][]> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
-		return relatorio.gerarRelatorio(
-				"Resultado Teste de Subgrupo", 
-				conjuntoOriginal, 
-				operacao, 
-				subConjunto, 
-				subGrupo.testarFechamento(),       
-				subGrupo.testarElementoNeutro(),
-				subGrupo.testarElementoInverso(),
-				subGrupo.ehSubGrupo()             
-			);
+		Relatorio<Double[][]> relatorio = new Relatorio<>(subGrupo);
+		return relatorio.gerarRelatorio(conjuntoOriginal, subConjunto);
 
 	}
 
-	/**
-	 * Realiza o teste de subgrupo para conjuntos binários.
-	 */
+
 	public String ehSubGrupoBinario(String conjuntoOriginal, String operacao,
-	 String subConjunto){
+			 String subConjunto){
 
-	 	HashSet<String> conjunto = conversor.paraConjuntoBinario(conjuntoOriginal);
-		HashSet<String> subConj = conversor.paraConjuntoBinario(subConjunto);
-		Operacao op = OperacaoController.getOperacaoBinaria(operacao);
+	 	HashSet<Integer> conjunto = Conversor.paraConjuntoBinario(conjuntoOriginal);
+		HashSet<Integer> subConj = Conversor.paraConjuntoBinario(subConjunto);
+		Operacao<Integer> op = OperacaoController.getOperacaoBinaria(operacao);
 
-		SubGrupo subGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<Integer> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
-		return relatorio.gerarRelatorio(
-				"Resultado Teste de Subgrupo", 
-				conjuntoOriginal, 
-				operacao, 
-				subConjunto, 
-				subGrupo.testarFechamento(),       
-				subGrupo.testarElementoNeutro(),
-				subGrupo.testarElementoInverso(),
-				subGrupo.ehSubGrupo()             
-			);
-
+		Relatorio<Integer> relatorio = new Relatorio<Integer>(subGrupo);
+		return relatorio.gerarRelatorio();
 	}
 
-	/**
-	 * Realiza o teste de subgrupo para classes de congruência (Mod).
-	 */
 	public String ehSubGrupoMod(String conjuntoOriginal, String operacao,
-	 String subConjunto){
+			 String subConjunto){
 
-	 	HashSet<Integer> conjunto = conversor.paraConjuntoMod(conjuntoOriginal);
-		HashSet<Integer> subConj = conversor.paraConjuntoMod(subConjunto);
-		Operacao op = OperacaoController.getOperacaoClasseCongruencia(operacao);
+	 	HashSet<String> conjunto = Conversor.paraConjuntoMod(conjuntoOriginal);
+		HashSet<String> subConj = Conversor.paraConjuntoMod(subConjunto);
+		Operacao<String> op = OperacaoController.getOperacaoMod(operacao);
 
-		SubGrupo subGrupo = new SubGrupo(conjunto, op, subConj);
+		SubGrupo<String> subGrupo = new SubGrupo<>(conjunto, op, subConj);
 
-		return relatorio.gerarRelatorio(
-				"Resultado Teste de Subgrupo", 
-				conjuntoOriginal, 
-				operacao, 
-				subConjunto, 
-				subGrupo.testarFechamento(),       
-				subGrupo.testarElementoNeutro(),
-				subGrupo.testarElementoInverso(),
-				subGrupo.ehSubGrupo()             
-			);
+		Relatorio<String> relatorio = new Relatorio<String>(subGrupo);
+		return relatorio.gerarRelatorio();
 	}
 }
