@@ -4,10 +4,6 @@
 
 package conversor;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.HashSet;
 
 public class Conversor {
