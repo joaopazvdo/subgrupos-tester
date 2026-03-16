@@ -10,12 +10,18 @@ import grupo.SubGrupo;
 public class Relatorio<T> {
 	
 	private SubGrupo<T> subGrupo;
+	
+	private String conjOriginal;
+	
+	private String subConj;
 
 	/**
 	 * Construtor padrão da classe.
 	 */
-	public Relatorio(SubGrupo<T> subGrupo) {
+	public Relatorio(SubGrupo<T> subGrupo, String conjOriginal, String subConj) {
 		this.subGrupo = subGrupo;
+		this.conjOriginal = conjOriginal;
+		this.subConj = subConj;
 	}
 
 	/**
@@ -27,8 +33,8 @@ public class Relatorio<T> {
 		String textoBruto = 
 				"RESULTADO DA ANÁLISE\n" +
 				"-".repeat("RESULTADO DA ANÁLISE".length()) + "\n" +
-				"Conjunto Original: " + subGrupo.getConjunto().toString() + "\n" +
-				"Subconjunto      : " + subGrupo.getSubconjunto().toString() + "\n" +
+				"Conjunto Original: " + conjOriginal + "\n" +
+				"Subconjunto      : " + subConj + "\n" +
 				"Operação         : " + subGrupo.getOperador() + "\n" +
 				"\n" +
 				"Etapas de Validação grupo original:\n" +
