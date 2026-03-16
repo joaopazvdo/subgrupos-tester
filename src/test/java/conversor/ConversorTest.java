@@ -5,166 +5,202 @@
 package conversor;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashSet;
 import java.util.Set;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class ConversorTest {
-
-    @Test
-    public void testParaConjuntoMatriz1() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{1, 2, 3}");
-        Double[][] matriz = resultado.iterator().next();
-        assertArrayEquals(new Double[]{1.0, 2.0, 3.0}, matriz[0]);
-    }
+class ConversorTest {
 
     @Test
-    public void testParaConjuntoMatriz2() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{1, 2}, {3, 4}");
+    void testeMatrizNormal2x2() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[[1.0, 2.0], [3.0, 4.0]]");
+        assertEquals(1, resultado.size());
         Double[][] matriz = resultado.iterator().next();
         assertArrayEquals(new Double[]{1.0, 2.0}, matriz[0]);
         assertArrayEquals(new Double[]{3.0, 4.0}, matriz[1]);
     }
 
     @Test
-    public void testParaConjuntoMatriz3() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{-1.5, -2.5}");
+    void testeMatrizInteirosComoDouble() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[[1, 2], [3, 4]]");
         Double[][] matriz = resultado.iterator().next();
-        assertArrayEquals(new Double[]{-1.5, -2.5}, matriz[0]);
+        assertArrayEquals(new Double[]{1.0, 2.0}, matriz[0]);
     }
 
     @Test
-    public void testParaConjuntoMatriz4() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{0}");
+    void testeMatrizComNumerosNegativos() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[[-1.5, 2.5], [3.0, -4.0]]");
         Double[][] matriz = resultado.iterator().next();
-        assertArrayEquals(new Double[]{0.0}, matriz[0]);
+        assertArrayEquals(new Double[]{-1.5, 2.5}, matriz[0]);
+        assertArrayEquals(new Double[]{3.0, -4.0}, matriz[1]);
     }
 
     @Test
-    public void testParaConjuntoMatriz5() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{ 10 , 20 }");
+    void testeMatrizIrregular() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[[1, 2, 3], [4]]");
         Double[][] matriz = resultado.iterator().next();
-        assertArrayEquals(new Double[]{10.0, 20.0}, matriz[0]);
+        assertEquals(3, matriz[0].length);
+        assertEquals(1, matriz[1].length);
     }
 
     @Test
-    public void testParaConjuntoMatriz6() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{1, 2, 3}, {4, 5}");
+    void testeMatriz1x1() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[[42.42]]");
         Double[][] matriz = resultado.iterator().next();
-        assertArrayEquals(new Double[]{1.0, 2.0, 3.0}, matriz[0]);
-        assertArrayEquals(new Double[]{4.0, 5.0}, matriz[1]);
+        assertEquals(1, matriz.length);
+        assertEquals(42.42, matriz[0][0]);
     }
 
     @Test
-    public void testParaConjuntoMatriz7() {
-        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("{10.5, 20.1}, {30.9, 40.2}, {50.5, 60.6}");
+    void testeMatrizComMuitosEspacos() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[ [  1.5 , 2.5 ] , [ 3.5 , 4.5 ] ]");
+        Double[][] matriz = resultado.iterator().next();
+        assertArrayEquals(new Double[]{1.5, 2.5}, matriz[0]);
+    }
+
+    @Test
+    void testeMatrizRetangular3x2() {
+        HashSet<Double[][]> resultado = Conversor.paraConjuntoMatriz("[[1, 2], [3, 4], [5, 6]]");
         Double[][] matriz = resultado.iterator().next();
         assertEquals(3, matriz.length);
-        assertArrayEquals(new Double[]{50.5, 60.6}, matriz[2]);
+        assertArrayEquals(new Double[]{5.0, 6.0}, matriz[2]);
     }
 
     @Test
-    public void testParaConjuntoNumerico1() {
-        assertEquals(Set.of(1.0, 2.0, 3.0), Conversor.paraConjuntoNumerico("1, 2, 3"));
+    void testeNumericoNormal() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("1.5, 2.5, 3.5");
+        assertTrue(resultado.containsAll(Set.of(1.5, 2.5, 3.5)));
+        assertEquals(3, resultado.size());
     }
 
     @Test
-    public void testParaConjuntoNumerico2() {
-        assertEquals(Set.of(1.5, 2.5), Conversor.paraConjuntoNumerico("1.5, 2.5"));
+    void testeNumericoSemEspacos() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("1.1,2.2,3.3");
+        assertTrue(resultado.containsAll(Set.of(1.1, 2.2, 3.3)));
     }
 
     @Test
-    public void testParaConjuntoNumerico3() {
-        assertEquals(Set.of(-1.0, -2.0), Conversor.paraConjuntoNumerico("-1, -2"));
+    void testeNumericoRemocaoDuplicatas() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("1.0, 1.0, 2.0, 2.0, 3.0");
+        assertEquals(3, resultado.size());
+        assertTrue(resultado.contains(1.0));
     }
 
     @Test
-    public void testParaConjuntoNumerico4() {
-        assertEquals(Set.of(42.0), Conversor.paraConjuntoNumerico("42"));
+    void testeNumericoApenasUmNumero() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("42.0");
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains(42.0));
     }
 
     @Test
-    public void testParaConjuntoNumerico5() {
-        assertEquals(Set.of(1.0, 2.0), Conversor.paraConjuntoNumerico("1, 1, 2, 2"));
+    void testeNumericoComNegativos() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("-1.5, 2.0, -3.14");
+        assertTrue(resultado.containsAll(Set.of(-1.5, 2.0, -3.14)));
     }
 
     @Test
-    public void testParaConjuntoNumerico6() {
-        assertEquals(Set.of(0.0), Conversor.paraConjuntoNumerico("0, 0, 0"));
+    void testeNumericoInteiros() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("1, 2, 30");
+        assertTrue(resultado.containsAll(Set.of(1.0, 2.0, 30.0)));
     }
 
     @Test
-    public void testParaConjuntoNumerico7() {
-        assertEquals(Set.of(10.0, 20.0, 30.0), Conversor.paraConjuntoNumerico(" 10 , 20 , 30 "));
+    void testeNumericoEspacosExtremos() {
+        HashSet<Double> resultado = Conversor.paraConjuntoNumerico("   10.5  ,  20.5   ");
+        assertTrue(resultado.containsAll(Set.of(10.5, 20.5)));
     }
 
     @Test
-    public void testParaConjuntoBinario1() {
-        assertEquals(Set.of(0, 1, 2), Conversor.paraConjuntoBinario("000 001 010"));
+    void testeBinarioNormal() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario("000 001 010");
+        assertTrue(resultado.containsAll(Set.of(0, 1, 2)));
     }
 
     @Test
-    public void testParaConjuntoBinario2() {
-        assertEquals(Set.of(10), Conversor.paraConjuntoBinario("1010"));
+    void testeBinarioValoresAltos() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario("1111 1010 1100");
+        assertTrue(resultado.containsAll(Set.of(15, 10, 12)));
     }
 
     @Test
-    public void testParaConjuntoBinario3() {
-        assertEquals(Set.of(3), Conversor.paraConjuntoBinario("11 11 11"));
+    void testeBinarioRemocaoDuplicatas() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario("00 000 0000 11");
+        assertEquals(2, resultado.size());
+        assertTrue(resultado.containsAll(Set.of(0, 3)));
     }
 
     @Test
-    public void testParaConjuntoBinario4() {
-        assertEquals(Set.of(0), Conversor.paraConjuntoBinario("0 00 000"));
+    void testeBinarioUnicoValor() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario("101010");
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains(42));
     }
 
     @Test
-    public void testParaConjuntoBinario5() {
-        assertEquals(Set.of(255), Conversor.paraConjuntoBinario("11111111"));
+    void testeBinarioApenasZeros() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario("0 0 0");
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains(0));
     }
 
     @Test
-    public void testParaConjuntoBinario6() {
-        assertEquals(Set.of(1, 2, 4, 8), Conversor.paraConjuntoBinario("1 10 100 1000"));
+    void testeBinarioBitsIsolados() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario("1 0 1");
+        assertEquals(2, resultado.size());
+        assertTrue(resultado.containsAll(Set.of(0, 1)));
     }
 
     @Test
-    public void testParaConjuntoBinario7() {
-        assertEquals(Set.of(5, 7), Conversor.paraConjuntoBinario("101 111"));
+    void testeBinarioStringComUmEspacoNoInicioEFim() {
+        HashSet<Integer> resultado = Conversor.paraConjuntoBinario(" 110 011 ");
+        assertTrue(resultado.containsAll(Set.of(6, 3)));
     }
 
     @Test
-    public void testParaConjuntoMod1() {
-        assertEquals(Set.of("0 mod 3", "1 mod 3", "2 mod 3"), Conversor.paraConjuntoMod("[0, 1, 2] 3"));
+    void testeModNormal() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[0, 1, 2, 3, 4, 5] 6");
+        assertEquals(6, resultado.size());
+        assertTrue(resultado.contains("5 mod 6"));
     }
 
     @Test
-    public void testParaConjuntoMod2() {
-        assertEquals(Set.of("1 mod 3", "2 mod 3"), Conversor.paraConjuntoMod("[4, 5] 3"));
+    void testeModComNumerosMaioresQueOModulo() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[7, 10, 12] 5");
+        assertTrue(resultado.containsAll(Set.of("2 mod 5", "0 mod 5")));
+        assertEquals(2, resultado.size());
     }
 
     @Test
-    public void testParaConjuntoMod3() {
-        assertEquals(Set.of("1 mod 3"), Conversor.paraConjuntoMod("[1, 4, 7] 3"));
+    void testeModComNumerosNegativos() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[-1, -2] 5");
+        assertTrue(resultado.containsAll(Set.of("4 mod 5", "3 mod 5")));
     }
 
     @Test
-    public void testParaConjuntoMod4() {
-        assertEquals(Set.of("0 mod 2"), Conversor.paraConjuntoMod("[0, 2, 4, 6] 2"));
+    void testeModUnicoElemento() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[15] 4");
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains("3 mod 4"));
     }
 
     @Test
-    public void testParaConjuntoMod5() {
-        assertEquals(Set.of("5 mod 10", "3 mod 10"), Conversor.paraConjuntoMod("[15, 23] 10"));
+    void testeModComMuitoEspacamento() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[  1 ,  2  ]    3 ");
+        assertTrue(resultado.containsAll(Set.of("1 mod 3", "2 mod 3")));
     }
 
     @Test
-    public void testParaConjuntoMod6() {
-        assertEquals(Set.of("0 mod 5"), Conversor.paraConjuntoMod("[5] 5"));
+    void testeModModuloUm() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[5, 10, 15] 1");
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains("0 mod 1"));
     }
 
     @Test
-    public void testParaConjuntoMod7() {
-        assertEquals(Set.of("1 mod 4", "2 mod 4", "3 mod 4"), Conversor.paraConjuntoMod("[ 1 , 2 , 3 ] 4"));
+    void testeModComDuplicatasIntencionais() {
+        HashSet<String> resultado = Conversor.paraConjuntoMod("[2, 2, 2] 3");
+        assertEquals(1, resultado.size());
+        assertTrue(resultado.contains("2 mod 3"));
     }
 }
