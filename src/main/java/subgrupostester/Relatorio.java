@@ -33,24 +33,10 @@ public class Relatorio<T> {
 		String textoBruto = 
 				"RESULTADO DA ANÁLISE\n" +
 				"-".repeat("RESULTADO DA ANÁLISE".length()) + "\n" +
-				"Conjunto Original: " + conjOriginal + "\n" +
-				"Subconjunto      : " + subConj + "\n" +
-				"Operação         : " + subGrupo.getOperador() + "\n" +
-				"\n" +
-				"Etapas de Validação grupo original:\n" +
-				testeFechamento() + "\n" +
-				testeIdentidade() + "\n" +
-				testeInverso() + "\n" +
-				testeAssocitividade() + "\n" +
-				(subGrupo.ehGrupo() ? "=> CONCLUSÃO: É um grupo válido!" : "=> CONCLUSÃO: NÃO é um grupo.") +
-				"\n\n" +
-				"Etapas de Validação subgrupo:\n" +
-				testeEhSubConjunto() + "\n" +
-				testeSubFechamento() + "\n" +
-				testeSubIdentidade() + "\n" +
-				testeSubInverso() + "\n" +
-				"\n" +
-				(subGrupo.ehSubGrupo() ? "=> CONCLUSÃO: É um subgrupo válido!" : "=> CONCLUSÃO: NÃO é um subgrupo.");
+				"Conjunto Original: " + subGrupo.getConjunto().toString() + "\n" +
+				"Subconjunto      : " + subGrupo.getSubconjunto().toString() + "\n" +
+				corpo();
+				
 
 		String[] linhas = textoBruto.split("\n");
 
@@ -70,8 +56,61 @@ public class Relatorio<T> {
 		}
 
 		relatorioFinal += linhaHorizontal;
-//		System.out.println(relatorioFinal);
 		return relatorioFinal;
+	}
+	
+	/**
+	 * Gera um relatório formatado em caixa com detalhes dos testes.
+	 */
+	public String gerarRelatorio(String conjuntoOriginal, String subConjunto) {
+
+
+		String textoBruto = 
+				"RESULTADO DA ANÁLISE\n" +
+				"-".repeat("RESULTADO DA ANÁLISE".length()) + "\n" +
+				"Conjunto Original: " + conjuntoOriginal + "\n" +
+				"Subconjunto      : " + subConjunto + "\n" +
+				corpo();
+				
+
+		String[] linhas = textoBruto.split("\n");
+
+		int tamanhoMaximo = 0;
+		for (String linha : linhas) {
+			if (linha.length() > tamanhoMaximo) {
+				tamanhoMaximo = linha.length();
+			}
+		}
+
+		String linhaHorizontal = "+" + "-".repeat(tamanhoMaximo + 2) + "+\n";
+		String relatorioFinal = linhaHorizontal;
+		for (String linha : linhas) {
+			int espacosFaltando = tamanhoMaximo - linha.length();
+			String espacos = " ".repeat(espacosFaltando);
+			relatorioFinal += "| " + linha + espacos + " |\n";
+		}
+
+		relatorioFinal += linhaHorizontal;
+		return relatorioFinal;
+	}
+	
+	private String corpo() {
+		return "Operação         : " + subGrupo.getOperador() + "\n" +
+				"\n" +
+				"Etapas de Validação grupo original:\n" +
+				testeFechamento() + "\n" +
+				testeIdentidade() + "\n" +
+				testeInverso() + "\n" +
+				testeAssocitividade() + "\n" +
+				(subGrupo.ehGrupo() ? "=> CONCLUSÃO: É um grupo válido!" : "=> CONCLUSÃO: NÃO é um grupo.") +
+				"\n\n" +
+				"Etapas de Validação subgrupo:\n" +
+				testeEhSubConjunto() + "\n" +
+				testeSubFechamento() + "\n" +
+				testeSubIdentidade() + "\n" +
+				testeSubInverso() + "\n" +
+				"\n" +
+				(subGrupo.ehSubGrupo() ? "=> CONCLUSÃO: É um subgrupo válido!" : "=> CONCLUSÃO: NÃO é um subgrupo.");
 	}
 	
 	private String testeSubFechamento() {

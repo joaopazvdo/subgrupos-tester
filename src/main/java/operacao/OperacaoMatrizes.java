@@ -22,9 +22,9 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		 */
 		@Override
 		public Double[][] faz(Double[][] v1, Double[][] v2) {
-			verificaMatrizQuadrada(v1);
-			verificaMatrizQuadrada(v2);
-			verificaTamMatrizez(v1, v2);
+//			verificaMatrizQuadrada(v1);
+//			verificaMatrizQuadrada(v2);
+//			verificaTamMatrizez(v1, v2);
 
 			int linhas1 = v1.length;
 			int colunas1 = v1[0].length;
@@ -60,7 +60,7 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		 */
 		@Override
 		public Double[][] faz(Double[][] v1, Double[][] v2) {
-			verificaTamMatrizez(v1, v2);
+//			verificaTamMatrizez(v1, v2);
 			Double[][] soma = new Double[v1.length][v1[0].length];
 			for (int lin = 0; lin < soma.length; lin++) {
 				for (int col = 0; col < soma[lin].length; col++) {
