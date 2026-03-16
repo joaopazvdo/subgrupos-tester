@@ -11,17 +11,11 @@ public class Relatorio<T> {
 	
 	private SubGrupo<T> subGrupo;
 	
-	private String conjOriginal;
-	
-	private String subConj;
-
 	/**
 	 * Construtor padrão da classe.
 	 */
-	public Relatorio(SubGrupo<T> subGrupo, String conjOriginal, String subConj) {
+	public Relatorio(SubGrupo<T> subGrupo) {
 		this.subGrupo = subGrupo;
-		this.conjOriginal = conjOriginal;
-		this.subConj = subConj;
 	}
 
 	/**
