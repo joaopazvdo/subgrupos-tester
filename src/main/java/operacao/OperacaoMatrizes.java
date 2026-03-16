@@ -22,9 +22,8 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		 */
 		@Override
 		public Double[][] faz(Double[][] v1, Double[][] v2) {
-//			verificaMatrizQuadrada(v1);
-//			verificaMatrizQuadrada(v2);
-//			verificaTamMatrizez(v1, v2);
+			verificaTamMatrizez(v1, v2);
+			verificaAdequadoMultiplicacao(v1,  v2);
 
 			int linhas1 = v1.length;
 			int colunas1 = v1[0].length;
@@ -44,6 +43,12 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 
 			return produto;
 		}
+		
+		private void verificaAdequadoMultiplicacao(Double[][] m1, Double[][] m2) {
+			if (m1[0].length != m2.length) {
+				throw new IllegalArgumentException("Dimensões incompatíveis com multiplicação");
+			}
+		}
 	},
 
 	ADICAO("Adição", 0.0) {
@@ -60,7 +65,8 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 		 */
 		@Override
 		public Double[][] faz(Double[][] v1, Double[][] v2) {
-//			verificaTamMatrizez(v1, v2);
+			verificaTamMatrizez(v1, v2);
+			verificaAdequadoAdicao(v1, v2);
 			Double[][] soma = new Double[v1.length][v1[0].length];
 			for (int lin = 0; lin < soma.length; lin++) {
 				for (int col = 0; col < soma[lin].length; col++) {
@@ -69,6 +75,18 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 			}
 
 			return soma;
+		}
+		
+		private void verificaAdequadoAdicao(Double[][] m1, Double[][] m2) {
+			int numLinhas1 = m1.length;
+			int numColunas1 = m1[0].length;
+
+			int numLinhas2 = m2.length;
+			int numColunas2 = m2[0].length;
+			if (numLinhas1 != numLinhas2 || numColunas1 != numColunas2) {
+				throw new IllegalArgumentException(
+						"Matrizes de tamanhos diferentes");
+			}
 		}
 	};
 
@@ -125,18 +143,12 @@ public enum OperacaoMatrizes implements Operacao<Double[][]> {
 	 */
 	public void verificaTamMatrizez(Double[][] v1, Double[][] v2) {
 		try {
-			int numLinhas1 = v1.length;
 			int numColunas1 = v1[0].length;
 
-			int numLinhas2 = v2.length;
 			int numColunas2 = v2[0].length;
 
 			if (numColunas1 == 0 || numColunas2 == 0) {
 				throw new NullPointerException("Matriz vazia não permitido");
-			}
-			if (numLinhas1 != numLinhas2 || numColunas1 != numColunas2) {
-				throw new IllegalArgumentException(
-						"Matrizes de tamanhos diferentes");
 			}
 		} catch (ArrayIndexOutOfBoundsException ae) {
 			throw new ArrayIndexOutOfBoundsException("Matriz vazia não permitido");

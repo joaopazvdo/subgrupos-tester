@@ -7,39 +7,33 @@ import subgrupostester.*;
  */
 
 public class FacadeController {
-	private Relatorio re;
 	private SubGruposTester sub;
 
 	public FacadeController() {
-		this.re = new Relatorio();
 		this.sub = new SubGruposTester();
 	}
 
 	public String processarVerificacao(String tipo, String operacao, String grupoG, String subgrupoX) {
-		boolean resultado = false;
 
-		switch (tipo) {
-		case "Numérico":
-			resultado = sub.ehSubGrupoNumerico(grupoG, operacao, subgrupoX);
-			break;
-		case "Matriz":
-			resultado = sub.ehSubGrupoMatriz(grupoG, operacao, subgrupoX);
-			break;
-		case "Binário":
-			resultado = sub.ehSubGrupoBinario(grupoG, operacao, subgrupoX);
-			break;
-		case "Mod":
-			resultado = sub.ehSubGrupoMod(grupoG, operacao, subgrupoX);
-			break;
-		default:
-			return "Erro: Tipo de conjunto desconhecido.";
+		try {
+			switch (tipo) {
+			case "Numérico":
+				return sub.ehSubGrupoNumerico(grupoG, operacao, subgrupoX);
+			case "Matriz":
+				return sub.ehSubGrupoMatriz(grupoG, operacao, subgrupoX);
+			case "Binário":
+				return sub.ehSubGrupoBinario(grupoG, operacao, subgrupoX);
+			case "Mod":
+				return sub.ehSubGrupoMod(grupoG, operacao, subgrupoX);
+			default:
+				return "Erro: Tipo de conjunto desconhecido.";
+			}
+		} catch (IllegalArgumentException e) {
+			return e.getMessage();
+//		} catch (ArrayIndexOutOfBoundsException e) {
+//			return e.getMessage();
+		} catch (NullPointerException e) {
+			return e.getMessage();
 		}
-
-		String txtFechamento = resultado ? "[OK] Propriedade verificada." : "[X] Falha na validação.";
-		String txtNeutro = resultado ? "[OK] Elemento neutro presente." : "[X] Falha na validação.";
-		String txtInverso = resultado ? "[OK] Elemento inverso presente." : "[X] Falha na validação.";
-
-		return re.gerarRelatorio("Resultado da Análise - " + tipo, grupoG, operacao, subgrupoX, txtFechamento,
-				txtNeutro, txtInverso, resultado);
 	}
 }
