@@ -5,7 +5,6 @@
 package conversor;
 
 import java.util.List;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,31 +21,28 @@ public class Conversor {
      * em uma matriz de Double, que sera armazenada em um hashSet.
      * */
 	public static HashSet<Double[][]> paraConjuntoMatriz(String conjuto){
-		List<Double[]> linhasTemporarias = new ArrayList<>();
+        HashSet<Double[][]> conj = new HashSet<>();
 
-        Pattern padrao = Pattern.compile("\\{([^}]+)\\}");
-        Matcher buscador = padrao.matcher(conjuto);
+        conjuto = conjuto.replaceAll("\\s+", "");
 
-        while (buscador.find()) {
-            String conteudoLinha = buscador.group(1);
+        conjuto = conjuto.substring(2, conjuto.length() -2);
 
-            String[] numerosEmTexto = conteudoLinha.split(",");
-            Double[] linhaAtual = new Double[numerosEmTexto.length];
+        String[] linhas = conjuto.split("\\],\\[");
 
-            for (int i = 0; i < numerosEmTexto.length; i++) {
-                linhaAtual[i] = Double.parseDouble(numerosEmTexto[i].trim());
+        Double[][] matriz = new Double[linhas.length][];
+
+        for(int i = 0; i < linhas.length;i++){
+            String[] colunas = linhas[i].split(",");
+            matriz[i] = new Double[colunas.length];
+
+            for(int j =0; j <colunas.length; j++){
+                matriz[i][j] = Double.valueOf(colunas[j]);
             }
-
-            linhasTemporarias.add(linhaAtual);
         }
 
-        Double[][] matrizFinal = linhasTemporarias.toArray(new Double[0][0]);
+        conj.add(matriz);
 
-        HashSet<Double[][]> conjunto = new HashSet<>();
-
-        conjunto.add(matrizFinal);
-
-        return conjunto;
+        return conj;
 	}
 
     /**
@@ -76,7 +72,7 @@ public class Conversor {
     public static HashSet<Integer> paraConjuntoBinario(String conjunto){
         HashSet<Integer> conj = new HashSet<>();
 
-        String[] numeros = conjunto.split(" ");
+        String[] numeros = conjunto.trim().split(" ");
 
         for(String parte: numeros){
             Integer num = Integer.parseInt(parte.trim(), 2);
@@ -105,7 +101,7 @@ public class Conversor {
 
         for(int i = 0; i < partes.length; i++){
             int numero = Integer.parseInt(partes[i].trim());
-            int numMod = numero % mod;
+            int numMod = Math.floorMod(numero, mod);
             String modulo = String.format("%d mod %d",numMod, mod);
             conj.add(modulo);
         }
